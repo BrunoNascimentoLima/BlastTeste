@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="detalheUsu.xhtml">
+	<ui:define name="conteudo">
+
+
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+			closable="true" value="${usuarioMB.mensagem}" />
+
+		<h:form>
+			<p:fieldset legend="Escolha uma espécie para comparação:"
+				rendered="${not empty especieMB.especies}">
+				<p:scrollPanel style="width:1100px;height:800px" mode="native">
+					<p:dataGrid id="Especies" var="e" value="#{especieMB.especies}"
+						columns="1">
+
+						<p:column>
+
+							<p:panel id="especie" header="#{e.nome}"
+								style="text-align:center">
+
+								<h:panelGrid columns="1" style="width:100%">
+									<p:graphicImage value="/images/#{e.nomeCientifico}.jpg" />
+									<p:commandLink action="${especieMB.escolha(e)}">
+							           <h:outputText value="Comparar com #{e.nome} " />
+					             	</p:commandLink>
+									<h:outputText value="Nome Científico" align="center"
+										style="font-weight:bold" />
+									<h:outputText value="#{e.nomeCientifico}" />
+									<h:outputText value="Descrição" align="center"
+										style="font-weight:bold" />
+									<h:outputText value="#{e.descricao}" />
+
+								</h:panelGrid>
+							</p:panel>
+
+							<p:draggable for="especie" revert="true"
+								handle=".ui-panel-titlebar" stack=".ui-panel" />
+
+						</p:column>
+
+					</p:dataGrid>
+				</p:scrollPanel>
+			</p:fieldset>
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

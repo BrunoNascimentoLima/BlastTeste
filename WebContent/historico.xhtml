@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="detalheUsu.xhtml">
+	<ui:define name="conteudo">
+
+
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+			closable="true" value="${usuarioMB.mensagem}" />
+
+		<h:form id="formComp">
+
+			<p:dataTable id="tbl" value="${usuarioMB.usuario.comparacoes}"
+				var="c" border="2" paginator="true"
+				rendered="${not empty usuarioMB.usuario.comparacoes}" rows="10" >
+
+				
+				<p:column>
+					<h:outputText value="${c.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" locale="pt,BR"
+							timeZone="Brazil/East" />
+					</h:outputText>
+					<f:facet name="header">Data </f:facet>
+				</p:column>
+
+				<p:column><h:outputText value="#{c.rid}" />
+	<f:facet name="header">RID</f:facet>
+				</p:column>
+				<p:column><h:outputText value="#{c.especie.nomeCientifico}" />
+	<f:facet name="header">Espécie</f:facet>
+				</p:column>
+				<p:column><h:outputText value="#{c.porcentagem}" />
+	<f:facet name="header">Similaridade Genética</f:facet>
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Ação</f:facet>
+					<h:commandLink action="${comparacaoMB.remover( c )}"
+						value="remover" update="formComp" />
+	|
+	<h:commandLink action="${comparacaoMB.selecionar( c )}"
+						value="selecionar" update="formComp" />
+				</p:column>
+
+			</p:dataTable>
+			
+			
+	
+				<p:panel header="Exportar Dados da Página">
+
+					<h:commandLink>
+						<p:graphicImage value="/images/pdf.png" />
+						<p:dataExporter type="pdf" target="tbl" encoding="iso-8859-1"
+							fileName="Dados CATAGA-${comparacaoMB.comparacao.usuario.nome}"
+							pageOnly="true" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage value="/images/excel.png" />
+						<p:dataExporter type="xls" target="tbl" fileName="Dados CATAGA-${comparacaoMB.comparacao.usuario.nome}"
+							pageOnly="true" encoding="iso-8859-1"/>
+					</h:commandLink>
+
+
+				</p:panel>
+				
+				<p:panel header="Exportar Todos os Dados">
+
+					<h:commandLink>
+						<p:graphicImage value="/images/pdf.png" />
+						<p:dataExporter type="pdf" target="tbl" encoding="iso-8859-1"
+							fileName="Dados CATAGA-${comparacaoMB.comparacao.usuario.nome}"
+							/>
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage value="/images/excel.png" />
+						<p:dataExporter type="xls" target="tbl" fileName="Dados CATAGA-${comparacaoMB.comparacao.usuario.nome}"
+						 encoding="iso-8859-1"/>
+					</h:commandLink>
+
+
+				</p:panel>
+
+			
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

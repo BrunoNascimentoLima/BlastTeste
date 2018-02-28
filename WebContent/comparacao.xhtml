@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="detalheUsu.xhtml">
+	<ui:define name="conteudo">
+
+
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+			closable="true" value="${comparacaoMB.mensagem}" />
+
+		<h:form>
+		<p:panel header="Adicionar Sequência de Espécie">
+		<h:panelGrid columns="1">
+		<h:outputLabel value="Adicionar sequência para comparação:*" />
+		<p:inputTextarea value="${comparacaoMB.comparacao.amostra}" rows="10" cols="30"  counter="counter" maxlength="100000"    
+                counterTemplate="{0} characters remaining." autoResize="false" id="seq">
+                <f:validator validatorId="minhaValidacao"/>
+        </p:inputTextarea>
+                <p:watermark for="seq" value="Entre com a sequência a ser comparada... " />	
+        <h:outputText id="counter" />
+		<h:panelGroup>
+		<p:commandButton id="submeter" value="Submeter"
+					icon="ui-icon-disk" action="${comparacaoMB.submeter()}"
+					 />
+		</h:panelGroup>
+		</h:panelGrid>
+		
+		</p:panel>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="detalheUsu.xhtml">
+	<ui:define name="conteudo">
+		<h:form id="formUsuario">
+			<p:messages id="messages" showDetail="true" autoUpdate="false"
+				closable="true" value="${usuarioMB.mensagem}" />
+			<p:panel header="Editar Perfil">
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Usuário Id:*" />
+					<p:inputText id="userId" value="${usuarioMB.usuario.userId}"
+						required="true" label="Usuário Id" />
+					<p:message id="userIdMessage" for="userId" autoUpdate="true" />
+
+					<h:outputLabel value="Nome Completo:" />
+					<p:inputText id="nome" value="${usuarioMB.usuario.nome}"
+						required="true" label="Nome" />
+					<p:message id="nomeMessage" for="nome" autoUpdate="true" />
+
+					<h:outputLabel value="E-mail:" />
+					<p:inputText id="email" value="${usuarioMB.usuario.email}"
+						required="true" label="E-mail" />
+					<p:message id="emailMessage" for="email" autoUpdate="true" />
+
+					<h:outputLabel for="pw1" value="Password:" />
+					<p:password id="pw1" value="${usuarioMB.usuario.password}"
+						match="pw2" label="Password" required="true" />
+					<p:message id="pw1Message" for="pw1" autoUpdate="true" />
+
+					<h:outputLabel for="pw2" value="Repita Password:" />
+					<p:password id="pw2" value="${usuarioMB.usuario.password}"
+						label="Repita Password" required="true" />
+					<p:message id="pw2Message" for="pw2" autoUpdate="true" />
+
+				</h:panelGrid>
+				<p:separator />
+
+
+				<h:panelGrid columns="2">
+
+					<f:facet name="header">  
+                      Endereço  
+                     </f:facet>
+
+					<h:outputLabel value="Logradouro:" />
+					<p:inputText id="logradouro"
+						value="${usuarioMB.usuario.endereco.logradouro}" required="false"
+						label="Logradouro" />
+
+					<h:outputLabel value="numero:" />
+					<p:inputMask id="n" value="${usuarioMB.usuario.endereco.numero}"
+						mask="999" required="false" label="Numero" />
+
+					<h:outputLabel value="Complemento:" />
+					<p:inputText id="complemento"
+						value="${usuarioMB.usuario.endereco.complemento}" required="false"
+						label="Complemento" />
+
+					<h:outputLabel value="Bairro:" />
+					<p:inputText id="bairro"
+						value="${usuarioMB.usuario.endereco.bairro}" required="false"
+						label="Bairro" />
+
+					<h:outputLabel value="Cidade:" />
+					<p:inputText id="cidade"
+						value="${usuarioMB.usuario.endereco.cidade}" required="false"
+						label="Cidade" />
+
+					<h:outputLabel value="Estado:" />
+					<p:selectOneMenu id="estado"
+						value="${usuarioMB.usuario.endereco.estado}" required="false"
+						label="Estado">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItem itemLabel="SP" itemValue="SP" />
+						<f:selectItem itemLabel="RJ" itemValue="RJ" />
+						<f:selectItem itemLabel="RS" itemValue="RS" />
+					</p:selectOneMenu>
+					<p:message id="esMessage" for="estado" autoUpdate="true" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:panelGroup columns="2">
+						<h:outputLabel value="CEP:*" />
+						<p:inputMask id="cep" value="${usuarioMB.usuario.endereco.cep}"
+							required="false" label="CEP" mask="99999-999" />
+					</h:panelGroup>
+					<h:panelGroup columns="2">
+						<h:outputLabel value="País:" />
+						<p:selectOneMenu id="pais"
+							value="${usuarioMB.usuario.endereco.pais}" required="false"
+							label="País">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItem itemLabel="Brasil" itemValue="Brasil" />
+						</p:selectOneMenu>
+						<p:message id="paisMessage" for="pais" autoUpdate="true" />
+					</h:panelGroup>
+				</h:panelGrid>
+
+				<p:separator />
+
+				<h:panelGrid columns="4">
+					<f:facet name="header">  
+                           Telefone  
+                     </f:facet>
+					<h:outputLabel value="DDD:" />
+					<p:inputMask id="ddd" value="${usuarioMB.usuario.telefone.ddd}"
+						required="false" label="DDD" mask="(99)" />
+
+					<h:outputLabel value="Numero:" />
+					<p:inputMask id="tel" value="${usuarioMB.usuario.telefone.numero}"
+						required="false" label="Telefone" mask="9999-9999" />
+
+					<h:outputLabel value="Operadora:" />
+					<p:selectOneMenu value="${usuarioMB.usuario.telefone.operadora}"
+						required="false" label="Estado">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItem itemLabel="TIM" itemValue="TIM" />
+						<f:selectItem itemLabel="OI" itemValue="OI" />
+						<f:selectItem itemLabel="VIVO" itemValue="VIVO" />
+						<f:selectItem itemLabel="CLARO" itemValue="CLARO" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+
+			<h:panelGrid width="100%" style="text-align:center">
+				<p:commandButton id="editarPerfil" value="Alterar"
+					icon="ui-icon-arrowrefresh-1-w" action="${usuarioMB.editarPerfil()}"
+					update="formUsuario" />
+			</h:panelGrid>
+			
+			</p:panel>
+
+			
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>
